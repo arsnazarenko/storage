@@ -35,9 +35,6 @@ func SerializeObject(v Serialisable) ([]byte, error) {
     return nil, nil
 }
 
-func SerializeObjectList[T Serialisable](l []T) ([]byte, error) {
-    return nil, nil
-}
 
 func GetType(buf []byte) (ValueType, error) {
     if buf == nil || len(buf) == 0 {
@@ -61,31 +58,42 @@ func DeserializeTo(src []byte, dst interface{}) error {
     switch t {
     case UintType: 
     if ptr, ok := dst.(*uint64); ok {
-                    
+        // TODO: impl
+        var _ interface{} = ptr
     }
     case IntType: 
     if ptr, ok := dst.(*int64); ok {
-           
+        // TODO: impl
+        var _ interface{} = ptr
     }
     case FloatType: 
     if ptr, ok := dst.(*float64); ok {
-                
+        // TODO: impl
+        var _ interface{} = ptr
     }
 
     case StringType: 
     if ptr, ok := dst.(*string); ok {
-                
+        // TODO: impl
+        var _ interface{} = ptr
     }
 
     case StringListType: 
     if ptr, ok := dst.(*[]string); ok {
-                
+        // TODO: impl
+        var _ interface{} = ptr
     }
 
     case StringMapType: 
     if ptr, ok := dst.(*map[string]string); ok {
-                
+        // TODO: impl
+        var _ interface{} = ptr
     }
+    case ObjectType:
+    if ptr, ok := dst.(Serialisable); ok {
+        // TODO: impl
+        var _ interface{} = ptr
+    } 
     default:
         panic("Unsupported type!")
     }
