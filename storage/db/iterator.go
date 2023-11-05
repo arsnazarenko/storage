@@ -1,8 +1,6 @@
 package db
 
 type Iterator interface {
-    HasNext() bool
-    GetNext() *Entry
+	HasNext() bool
+	GetNext() *Entry
 }
-
-
