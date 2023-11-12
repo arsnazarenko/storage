@@ -1,6 +1,7 @@
 package db
 
 type Key []byte
+type Value []byte
 
 type Options struct{}
 
