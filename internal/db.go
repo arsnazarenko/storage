@@ -2,7 +2,6 @@ package internal
 
 type Key []byte
 
-
 type Options struct{}
 
 type Batch struct{}

@@ -1,14 +1,14 @@
 package internal
 
 type Iterator interface {
-    First() bool
-    Last() bool
-    
-    Next() bool
-    Prev() bool
+	First() bool
+	Last() bool
 
-    Seek(key Key) bool
+	Next() bool
+	Prev() bool
 
-    Key() Key
-    Value() Value
+	Seek(key Key) bool
+
+	Key() Key
+	Value() Value
 }

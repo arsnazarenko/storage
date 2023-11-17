@@ -11,8 +11,8 @@ type Storage struct {
 
 // AtomicInc implements internal.Storage.
 func (*Storage) AtomicInc(key db.Key) error {
-	
-    panic("unimplemented")
+
+	panic("unimplemented")
 }
 
 // AtomicPop implements internal.Storage.
