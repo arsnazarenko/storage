@@ -121,7 +121,7 @@ func DeserializeUint(reader *bytes.Reader, dst *uint64) error {
 	return nil
 }
 
-func DeserialzeInt(reader *bytes.Reader, dst *int64) error {
+func DeserializeInt(reader *bytes.Reader, dst *int64) error {
 	var unsigned uint64
 	if err := DeserializeUint(reader, &unsigned); err != nil {
 		return fmt.Errorf("error in DeserializeInt: %w", err)
