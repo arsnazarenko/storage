@@ -1,7 +1,7 @@
-package db
+package impl 
 
 import (
-	db "github.com/arsnazarenko/storage/internal"
+	db "github.com/arsnazarenko/storage/internal/interface"
 )
 
 var _ db.Storage = (*Storage)(nil)

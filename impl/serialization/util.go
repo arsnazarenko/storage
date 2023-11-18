@@ -9,8 +9,6 @@ import (
 )
 
 var (
-	BufWriteError     = errors.New("an error occurred while writing to the buffer")
-	BufReadError      = errors.New("an error occurred while reading from the buffer")
 	ZeroStrLenError   = errors.New("string length must be greater then 0")
 	ZeroSliceLenError = errors.New("slice length must be greater then 0")
 )
@@ -37,7 +35,7 @@ func SerializeUint(v uint64, buf *bytes.Buffer) error {
 		}
 		// err is always nil
 		if err := buf.WriteByte(curByte); err != nil {
-			return fmt.Errorf("error in SerializeUint: %w", BufWriteError)
+			return fmt.Errorf("error in SerializeUint: %w", err)
 		}
 	}
 	return nil
@@ -51,7 +49,7 @@ func SerializeInt(v int64, buf *bytes.Buffer) error {
 func SerializeFloat(v float64, buf *bytes.Buffer) error {
 	err := binary.Write(buf, binary.LittleEndian, &v)
 	if err != nil {
-		return fmt.Errorf("error in SerializeInt: %w", BufWriteError)
+		return fmt.Errorf("error in SerializeInt: %w", err)
 	}
 	return nil
 }
@@ -64,7 +62,7 @@ func SerializeString(s string, buf *bytes.Buffer) error {
 	// err is always nil
 	n, err := buf.Write([]byte(s))
 	if err != nil || n < slen {
-		return fmt.Errorf("error in SerializeFloat: %w", BufWriteError)
+		return fmt.Errorf("error in SerializeFloat: %w", err)
 	}
 	return nil
 }
@@ -95,12 +93,6 @@ func SerializeStringList(v []string, buf *bytes.Buffer) error {
 	return nil
 }
 
-func SerializeObject(v Serialisable, buf *bytes.Buffer) error {
-	if err := v.Serialize(buf); err != nil {
-		return err
-	}
-	return nil
-}
 
 func DeserializeUint(reader *bytes.Reader, dst *uint64) error {
 	var res uint64 = 0
@@ -109,7 +101,7 @@ func DeserializeUint(reader *bytes.Reader, dst *uint64) error {
 	for {
 		curByte, err := reader.ReadByte()
 		if err != nil {
-			return fmt.Errorf("error in DeserializeUint: %w", BufReadError)
+			return fmt.Errorf("error in DeserializeUint: %w", err)
 		}
 		res |= uint64((curByte & 0x7F)) << (7 * i)
 		if (curByte & 0x80) == 0 {
@@ -133,7 +125,7 @@ func DeserializeInt(reader *bytes.Reader, dst *int64) error {
 func DeserializeFloat(reader *bytes.Reader, dst *float64) error {
 	var f float64
 	if err := binary.Read(reader, binary.LittleEndian, &f); err != nil {
-		return fmt.Errorf("error in DeserializeFloat: %w", BufReadError)
+		return fmt.Errorf("error in DeserializeFloat: %w", err)
 	}
 	*dst = f
 	return nil
@@ -143,7 +135,7 @@ func DeserializeString(reader *bytes.Reader, dst *string) error {
 	bLen := reader.Len()
 	strBytes := make([]byte, bLen, bLen)
 	if n, err := reader.Read(strBytes); err != nil || n < int(bLen) {
-		return fmt.Errorf("error in DeserializeString: %w", BufReadError)
+		return fmt.Errorf("error in DeserializeString: %w", err)
 	}
 	*dst = string(strBytes)
 	return nil
@@ -166,10 +158,11 @@ func DeserializeStringList(reader *bytes.Reader, dst *[]string) error {
 		}
 		strBytes = make([]byte, strLen, strLen)
 		if n, err := reader.Read(strBytes); n < int(strLen) || err != nil {
-			return fmt.Errorf("error in DeserializeStringList: %w", BufReadError)
+			return fmt.Errorf("error in DeserializeStringList: %w", err)
 		}
 		resSlice = append(resSlice, string(strBytes))
 	}
 	*dst = resSlice
 	return nil
 }
+

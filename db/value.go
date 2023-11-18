@@ -1,4 +1,4 @@
-package internal
+package db
 
 type ValueType = uint8
 
@@ -8,8 +8,6 @@ const (
 	FloatValueType                           // 64 bit float FloatType
 	StringValueType                          // UTF-8 string
 	StringListValueType                      // UTF-8 String list
-	ObjectValueType                          // User type implemented Serializable interface
-	MaxValueType                             // Max value type
 )
 
 type Value interface {

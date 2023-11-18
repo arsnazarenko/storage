@@ -2,14 +2,16 @@ package internal
 
 import (
 	"bytes"
-
-	db "github.com/arsnazarenko/storage/internal"
-	"github.com/arsnazarenko/storage/internal/serialization"
+    "github.com/arsnazarenko/storage/db"
 )
 
-type Value []byte
+type Value struct {
 
-func (v *Value) Type() db.ValueType           { return v.valueType }
+    vtype db.ValueType
+    data []byte
+} 
+
+func (v *Value) Type() db.ValueType           { return v.vtype }
 func (v *Value) Encode(dst interface{}) error { return nil }
 
 func FromUint(v uint64) db.Value {
@@ -60,7 +62,7 @@ func FromStringList(v []string) db.Value {
 	}
 }
 
-func FromObject(v serialization.Serialisable) db.Value {
+func FromObject(v serialization.Serializable) db.Value {
 	buf := bytes.NewBuffer(make([]byte, 0))
 
 	return &Value{
