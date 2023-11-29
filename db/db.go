@@ -1,4 +1,4 @@
-package db 
+package db
 
 type Key []byte
 
@@ -12,9 +12,9 @@ type Storage interface {
 	Delete(key Key) error
 	Scan(begin, end Key) (Iterator, error)
 	Write(b *Batch) error
-	
-    // operations for values with cpecific types 
-    AtomicInc(key Key) error
+
+	// operations for values with cpecific types
+	AtomicInc(key Key) error
 	AtomicPut(key Key) error
 	AtomicPop(key Key) error
 }

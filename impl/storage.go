@@ -1,7 +1,7 @@
-package impl 
+package impl
 
 import (
-	db "github.com/arsnazarenko/storage/internal/interface"
+	"github.com/arsnazarenko/storage/db"
 )
 
 var _ db.Storage = (*Storage)(nil)
@@ -9,38 +9,43 @@ var _ db.Storage = (*Storage)(nil)
 type Storage struct {
 }
 
-// AtomicInc implements internal.Storage.
+// AtomicInc implements db.Storage.
 func (*Storage) AtomicInc(key db.Key) error {
-
 	panic("unimplemented")
 }
 
-// AtomicPop implements internal.Storage.
+// AtomicPop implements db.Storage.
 func (*Storage) AtomicPop(key db.Key) error {
 	panic("unimplemented")
 }
 
-// AtomicPut implements internal.Storage.
+// AtomicPut implements db.Storage.
 func (*Storage) AtomicPut(key db.Key) error {
 	panic("unimplemented")
 }
 
-// Get implements internal.Storage.
+// Delete implements db.Storage.
+func (*Storage) Delete(key db.Key) error {
+	panic("unimplemented")
+}
+
+// Get implements db.Storage.
 func (*Storage) Get(key db.Key) (db.Value, error) {
 	panic("unimplemented")
 }
 
-// Put implements internal.Storage.
+// Put implements db.Storage.
 func (*Storage) Put(key db.Key, value db.Value) error {
 	panic("unimplemented")
 }
 
-// Scan implements internal.Storage.
+// Scan implements db.Storage.
 func (*Storage) Scan(begin db.Key, end db.Key) (db.Iterator, error) {
 	panic("unimplemented")
 }
 
-// WriteBatch implements internal.Storage.
-func (*Storage) WriteBatch(b *db.Batch) error {
+// Write implements db.Storage.
+func (*Storage) Write(b *db.Batch) error {
 	panic("unimplemented")
 }
+
