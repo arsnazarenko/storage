@@ -24,3 +24,21 @@ func New(blockSize uint) BlockBuilder {
 func (b *BlockBuilder) EstimatedSize() uint {
     return uint(len(b.offsets)) * U16_SIZE + uint(len(b.data)) + U16_SIZE 
 }
+
+func (b *BlockBuilder) Add(key []byte, value []byte) bool {
+    return false
+}
+
+func (b *BlockBuilder) IsEmpty() bool {
+    return (len(b.offsets) == 0)
+}
+
+func (b *BlockBuilder) Build() Block {
+    if b.IsEmpty() {
+        panic("Block should not be empty")
+    }
+    return Block{
+    	data:    b.data,
+    	offsets: b.offsets,
+    }
+}
